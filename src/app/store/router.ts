@@ -9,7 +9,6 @@ export interface State {
 }
 
 export const selectRouter = createFeatureSelector<
-    State,
     fromRouter.RouterReducerState<any>
 >('router')
 
