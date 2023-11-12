@@ -1,5 +1,6 @@
 
 // Custom Theming for Angular Material
+@use '~@angular/material' as mat;
 // For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
 // Plus imports for other components in your app.
@@ -7,13 +8,13 @@
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
-@include mat-core();
+@include mat.core();
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 
-$wingsearch-primary: mat-palette((
+$wingsearch-primary: mat.define-palette((
     50 : #ece8e2,
     100 : #d0c7b7,
     200 : #b1a187,
@@ -45,7 +46,7 @@ $wingsearch-primary: mat-palette((
         A700 : #000000,
     )
 ));
-$wingsearch-accent: mat-palette((
+$wingsearch-accent: mat.define-palette((
     50 : #e5f4f3,
     100 : #bee4e1,
     200 : #93d3cd,
@@ -79,15 +80,15 @@ $wingsearch-accent: mat-palette((
 ));
 
 // The warn palette is optional (defaults to red).
-$wingsearch-warn: mat-palette($mat-red);
+$wingsearch-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$wingsearch-theme: mat-light-theme($wingsearch-primary, $wingsearch-accent, $wingsearch-warn);
+$wingsearch-theme: mat.define-light-theme($wingsearch-primary, $wingsearch-accent, $wingsearch-warn);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($wingsearch-theme);
+@include mat.all-component-themes($wingsearch-theme);
 
 /* You can add global styles to this file, and also import other style files */
 
