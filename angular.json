@@ -129,7 +129,6 @@
       }
     }
   },
-  "defaultProject": "wingsearch",
   "cli": {
     "analytics": false
   }

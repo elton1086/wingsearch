@@ -4,13 +4,12 @@ import { search, bonusCardSearch, changeLanguage, resetLanguage } from '../store
 import { AppState, BonusCard } from '../store/app.interfaces'
 import { Observable } from 'rxjs'
 import { Options } from 'ng5-slider'
-import { FormControl } from '@angular/forms'
+import { UntypedFormControl } from '@angular/forms'
 import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material/autocomplete'
 import { CookiesService } from '../cookies.service'
 import { MatDialog } from '@angular/material/dialog'
 import { LanguageDialogComponent } from './language-dialog/language-dialog.component'
 import { AnalyticsService } from '../analytics.service'
-import { access } from 'fs'
 
 @Component({
   selector: 'app-search',
@@ -105,7 +104,7 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  bonusControl = new FormControl()
+  bonusControl = new UntypedFormControl()
 
   filteredBonusCards: Observable<BonusCard[]>
   bonusCards: Observable<BonusCard[]>
