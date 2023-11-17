@@ -16,12 +16,12 @@ import { MatSelectModule } from '@angular/material/select'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { ServiceWorkerModule } from '@angular/service-worker'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { Ng5SliderModule } from 'ng5-slider'
 import { InfiniteScrollModule } from 'ngx-infinite-scroll'
 import { EffectsModule } from '@ngrx/effects'
 import { StoreModule } from '@ngrx/store'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store'
+import { NgxSliderModule } from '@angular-slider/ngx-slider'
 
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
@@ -86,7 +86,7 @@ import { SafePipe } from './safe.pipe'
         MatInputModule,
         MatSelectModule,
         MatTooltipModule,
-        Ng5SliderModule,
+        NgxSliderModule,
         ReactiveFormsModule,
         StoreModule.forRoot({ app: appReducer, router: routerReducer }, {}),
         StoreRouterConnectingModule.forRoot(),
