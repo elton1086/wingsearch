@@ -148,13 +148,14 @@ export enum ExpansionType {
     Asia = 'asia',
 }
 
-export interface Expansion
-{
-    asia: boolean,
-    originalcore: boolean,
-    swiftstart: boolean,
-    european: boolean,
-    oceania: boolean
+export enum Expansion {
+    none = 0,
+    asia = 1 << 0,
+    originalcore = 1 << 1,
+    swiftstart = 1 << 2,
+    european = 1 << 3,
+    oceania = 1 << 4,
+    all = asia | originalcore | swiftstart | european | oceania
 }
 
 export interface DisplayedStats {

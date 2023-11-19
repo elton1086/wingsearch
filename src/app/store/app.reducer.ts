@@ -6,7 +6,7 @@ import BonusCards from '../../assets/data/bonus.json'
 import OtherTranslations from '../../assets/data/other.json'
 import { birdCardsSearch, bonusCardsSearch } from './cards-search'
 import { bonusSearchMap, dynamicPercentage } from './bonus-search-map'
-import { CookiesService } from '../cookies.service'
+import { hasFlag } from '../utils/enum-functions'
 
 
 const SLICE_WINDOW = 18
@@ -37,8 +37,6 @@ const eatsMustFood = (card: BirdCard, mustFood: string[]): boolean => {
     return !!mustFood.every(food => birdFood.includes(food)) || (!birdFood.length && mustFood.length === 1 && mustFood[0] === 'no-food')
 }
 
-const cookies: CookiesService = new CookiesService();
-
 export const initialState: AppState = {
     // @ts-ignore
     birdCards: BirdCards,
@@ -60,13 +58,7 @@ export const initialState: AppState = {
     displayedStats: calculateDisplayedStats(BirdCards.concat(BonusCards)),
     scrollDisabled: false,
     translatedContent: OtherTranslations,
-    expansion: {
-      asia: cookies.getCookie('expansion.asia') !== '0',
-      oceania: cookies.getCookie('expansion.oceania') !== '0',
-      european: cookies.getCookie('expansion.european') !== '0',
-      swiftstart: cookies.getCookie('expansion.swiftstart') !== '0',
-      originalcore: cookies.getCookie('expansion.originalcore') !== '0',
-    }
+    expansion: Expansion.none
 }
 
 const reducer = createReducer(
@@ -113,10 +105,6 @@ const reducer = createReducer(
             displayedCards = displayedCards.concat(bonusCards.map(dynamicPercentage(state.birdCards, action.expansion)))
         }
 
-        const allowedExpansions = Object.entries(action.expansion).reduce(
-            (acc, val) => val[1] ? [...acc, val[0]] : acc, []
-        )
-
         const allowedColors = Object.entries(action.colors).reduce(
             (acc, val) => val[1] ? [...acc, val[0]] : acc, []
         )
@@ -130,7 +118,7 @@ const reducer = createReducer(
         )
 
         displayedCards = displayedCards.filter(card =>
-            allowedExpansions.includes(card.Expansion) && (isBonusCard(card) || (
+            hasFlag(action.expansion, Expansion[`${card.Expansion}`]) && (isBonusCard(card) || (
                 allowedColors.includes(card.Color ? card.Color.toLowerCase() : 'white')) &&
                 eatsMustFood(card, mustFood) &&
                 allowedNests.includes(card['Nest type'])
@@ -199,7 +187,7 @@ const reducer = createReducer(
 
         activeBonusCards = activeBonusCards
             .filter(card => !action.bonus.includes(card.id))
-            .filter(card => action.expansion[card.Expansion])
+            .filter(card => hasFlag(action.expansion, Expansion[`${card.Expansion}`]))
 
         return { ...state, activeBonusCards }
     }),

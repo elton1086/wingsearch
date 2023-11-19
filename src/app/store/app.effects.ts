@@ -5,6 +5,7 @@ import { from, of } from 'rxjs'
 import { map, mergeMap } from 'rxjs/operators'
 import { CookiesService } from '../cookies.service'
 import { changeLanguage } from './app.actions'
+import { Expansion } from './app.interfaces'
 
 @Injectable()
 export class AppEffects {
@@ -16,13 +17,8 @@ export class AppEffects {
             const language = action.language || (this.cookies.hasConsent() && this.cookies.getCookie('language'))
             if (language)
             {
-              const expansion = action.expansion || {
-                  asia: this.cookies.getCookie('expansion.asia') !== '0',
-                  oceania: this.cookies.getCookie('expansion.oceania') !== '0',
-                  european: this.cookies.getCookie('expansion.european') !== '0',
-                  swiftstart: this.cookies.getCookie('expansion.swiftstart') !== '0',
-                  originalcore: this.cookies.getCookie('expansion.originalcore') !== '0',
-              }
+              const expansionCookie = parseInt(this.cookies.getCookie('expansion'))
+              const expansion = action.expansion || (isNaN(expansionCookie) ? Expansion.all : expansionCookie)
               return from(this.http.get(this.I18N_FOLDER + language + '.json')).pipe(
                 map((data) => ({ type: '[App] Set language', payload: data, language: language, expansion: expansion }))
               )

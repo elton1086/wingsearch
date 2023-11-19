@@ -1,3 +1,4 @@
+import { hasFlag } from '../utils/enum-functions'
 import { BirdCard } from './app.interfaces'
 import { BonusCard } from './app.interfaces'
 import { Expansion } from './app.interfaces'
@@ -173,15 +174,10 @@ function getPercentage(card: BonusCard, selectedBirds: BirdCard[]): number | str
   return (selectedBirds.filter(birdCard => bonusMatch.callbackfn(birdCard)).length / selectedBirds.length * 100).toFixed(1);
 }
 
-export function dynamicPercentage(birds: BirdCard[], expansion: Expansion) {
-  const allowedExpansions = Object.entries(expansion).reduce(
-    (acc, val) => val[1] ? [...acc, val[0]] : acc, []
-  )
+export function dynamicPercentage(birds: BirdCard[], allowedExpansions: Expansion) {
+  const selectedBirds = birds.filter(card => hasFlag(allowedExpansions, Expansion[card.Expansion.toLowerCase()]))
 
-  const selectedBirds = birds.filter(card => allowedExpansions.includes(card.Expansion))
-
-  return (card: BonusCard) =>
-  {
+  return (card: BonusCard) => {
     return { ...card, '%': getPercentage(card, selectedBirds) }
   }
 }

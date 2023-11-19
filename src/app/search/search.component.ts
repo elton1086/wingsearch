@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { search, bonusCardSearch, changeLanguage, resetLanguage } from '../store/app.actions'
-import { AppState, BonusCard } from '../store/app.interfaces'
+import { AppState, BonusCard, Expansion } from '../store/app.interfaces'
 import { Observable } from 'rxjs'
 import { Options } from '@angular-slider/ngx-slider'
 import { UntypedFormControl } from '@angular/forms'
@@ -10,6 +10,7 @@ import { CookiesService } from '../cookies.service'
 import { MatDialog } from '@angular/material/dialog'
 import { LanguageDialogComponent } from './language-dialog/language-dialog.component'
 import { AnalyticsService } from '../analytics.service'
+import { getAllFlagValues, hasFlag } from '../utils/enum-functions'
 
 @Component({
   selector: 'app-search',
@@ -52,13 +53,7 @@ export class SearchComponent implements OnInit {
       birds: true,
       bonuses: true
     },
-    expansion: {
-      asia: true,
-      oceania: true,
-      european: true,
-      swiftstart: true,
-      originalcore: true,
-    },
+    expansion: Expansion.all,
     eggs: {
       min: 0,
       max: 6
@@ -159,10 +154,22 @@ export class SearchComponent implements OnInit {
   }
 
   language = 'en'
-  selectedExpansions = ['asia', 'oceania', 'european', 'originalcore', 'swiftstart']
+  selectedExpansions = getAllFlagValues(Expansion.all, (n) => Expansion[n])
 
   @ViewChild(MatAutocompleteTrigger)
   autocomplete: MatAutocompleteTrigger
+
+  get hasTealPower(): boolean {
+    return hasFlag(this.query.expansion, Expansion.european) || hasFlag(this.query.expansion, Expansion.asia);
+  }
+
+  get hasYellowPower(): boolean {
+    return hasFlag(this.query.expansion, Expansion.oceania) || hasFlag(this.query.expansion, Expansion.asia);
+  }
+
+  get hasNectarFood(): boolean {
+    return hasFlag(this.query.expansion, Expansion.oceania) || hasFlag(this.query.expansion, Expansion.asia);
+  }
 
   constructor(
     private store: Store<{ app: AppState }>,
@@ -172,18 +179,12 @@ export class SearchComponent implements OnInit {
   ) {
     this.filteredBonusCards = this.store.select(({ app }) => app.activeBonusCards)
     this.bonusCards = this.store.select(({ app }) => app.bonusCards)
+    const expansionCookie = parseInt(cookies.getCookie('expansion'))
     this.query = {
       ...this.query,
-      expansion: {
-        asia: cookies.getCookie('expansion.asia') !== '0',
-        oceania: cookies.getCookie('expansion.oceania') !== '0',
-        european: cookies.getCookie('expansion.european') !== '0',
-        swiftstart: cookies.getCookie('expansion.swiftstart') !== '0',
-        originalcore: cookies.getCookie('expansion.originalcore') !== '0',
-      }
+      expansion: isNaN(expansionCookie) ? Expansion.all : expansionCookie
     }
-
-    this.selectedExpansions = Object.entries(this.query.expansion).reduce((acc, entry) => entry[1] ? [...acc, entry[0]] : acc, [])
+    this.selectedExpansions = getAllFlagValues(this.query.expansion, (n) => Expansion[n])
     store.dispatch(search(this.query))
   }
 
@@ -322,16 +323,9 @@ export class SearchComponent implements OnInit {
     this.query = {
       ...this.query,
       // @ts-ignore
-      expansion: {
-        ...Object.keys(this.query.expansion).reduce((acc, val) => ({ ...acc, [val]: false }), {}),
-        ...selectedExpansions.reduce((acc, val) => ({ ...acc, [val]: true }), {})
-      }
+      expansion: selectedExpansions.reduce((acc, val) => acc |= Expansion[val], Expansion.none)
     }
-
-    Object.entries(this.query.expansion).forEach(entry =>
-      this.cookies.setCookie(`expansion.${entry[0]}`, entry[1] ? '1' : '0', 365)
-    )
-
+    this.cookies.setCookie('expansion', this.query.expansion.toString(), 365)
     this.onBonusChange()
     this.onQueryChange()
   }
