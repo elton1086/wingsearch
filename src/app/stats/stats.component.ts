@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
+import { Component, Input, Output, EventEmitter } from '@angular/core'
 import { Observable } from 'rxjs'
 import { DisplayedStats, AppState } from '../store/app.interfaces'
 import { Store } from '@ngrx/store'
@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store'
   templateUrl: './stats.component.html',
   styleUrls: ['./stats.component.scss']
 })
-export class StatsComponent implements OnInit {
+export class StatsComponent {
 
   @Input()
   mobile: boolean
@@ -27,9 +27,6 @@ export class StatsComponent implements OnInit {
 
   constructor(store: Store<{ app: AppState }>) {
     this.stats$ = store.select(({ app }) => app.displayedStats)
-  }
-
-  ngOnInit(): void {
   }
 
   toggleHabitat(habitat: 'forest' | 'grassland' | 'wetland', event: MouseEvent) {

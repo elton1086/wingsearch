@@ -8,7 +8,7 @@ if (environment.production) {
   enableProdMode()
 }
 
-// tslint:disable-next-line: no-unused-expression
+// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err))

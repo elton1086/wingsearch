@@ -2,7 +2,7 @@ import { Directive, HostListener, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Directive({
-  selector: '[applinkWatcher]'
+  selector: '[appLinkWatcher]'
 })
 export class ApplinkDirective {
   

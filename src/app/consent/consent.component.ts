@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, Output } from '@angular/core'
 import { AnalyticsService } from '../analytics.service'
 import { CookiesService } from '../cookies.service'
 
@@ -7,14 +7,11 @@ import { CookiesService } from '../cookies.service'
   templateUrl: './consent.component.html',
   styleUrls: ['./consent.component.scss']
 })
-export class ConsentComponent implements OnInit {
+export class ConsentComponent {
   @Output()
   consentChange = new EventEmitter<string>()
 
   constructor(private cookies: CookiesService, private analytics: AnalyticsService) { }
-
-  ngOnInit(): void {
-  }
 
   setConsent(value: string) {
     this.cookies.setCookie('consent', value, 180, true)

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { BonusCard } from '../store/app.interfaces'
 
 @Component({
@@ -6,15 +6,10 @@ import { BonusCard } from '../store/app.interfaces'
   templateUrl: './bonus-card-option.component.html',
   styleUrls: ['./bonus-card-option.component.scss']
 })
-export class BonusCardOptionComponent implements OnInit {
+export class BonusCardOptionComponent {
 
   @Input()
   card: BonusCard
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   getPointConditions(): { value: string, point: boolean }[][] {
     return this.card.VP ? this.card.VP.split(';').reduce((acc, condition) => {
