@@ -30,7 +30,7 @@ export class StatsComponent {
   }
 
   toggleHabitat(habitat: 'forest' | 'grassland' | 'wetland', event: MouseEvent) {
-    event.cancelBubble = true
+    event.stopPropagation()
 
     const newStats = {
       ...this.statsControls,
@@ -45,7 +45,7 @@ export class StatsComponent {
   }
 
   toggleCards(cards: 'birds' | 'bonuses', event: MouseEvent) {
-    event.cancelBubble = true
+    event.stopPropagation()
 
     const newStats = {
       ...this.statsControls,

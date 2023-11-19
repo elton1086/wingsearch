@@ -202,7 +202,7 @@ export class SearchComponent implements OnInit {
 
   onKeyDown(event: KeyboardEvent) {
     if (event.key === ' ') {
-      event.cancelBubble = true
+      event.stopPropagation()
     }
   }
 
