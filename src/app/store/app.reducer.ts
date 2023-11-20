@@ -3,6 +3,7 @@ import * as appActions from './app.actions'
 import { AppState, isBirdCard, BirdCard, BonusCard, DisplayedStats, isBonusCard, Expansion } from './app.interfaces'
 import BirdCards from '../../assets/data/master.json'
 import BonusCards from '../../assets/data/bonus.json'
+import OtherTranslations from '../../assets/data/other.json'
 import { birdCardsSearch, bonusCardsSearch } from './cards-search'
 import { bonusSearchMap, dynamicPercentage } from './bonus-search-map'
 import { CookiesService } from '../cookies.service'
@@ -58,7 +59,7 @@ export const initialState: AppState = {
     // @ts-ignore
     displayedStats: calculateDisplayedStats(BirdCards.concat(BonusCards)),
     scrollDisabled: false,
-    translatedContent: {},
+    translatedContent: OtherTranslations,
     expansion: {
       asia: cookies.getCookie('expansion.asia') !== '0',
       oceania: cookies.getCookie('expansion.oceania') !== '0',
@@ -318,7 +319,7 @@ const reducer = createReducer(
             displayedCardsHidden: displayedBirds.concat(displayedBonuses).slice(SLICE_WINDOW),
             // @ts-ignore
             activeBonusCards: BonusCards.filter(eb => state.activeBonusCards.find(b => b.id === eb.id)),
-            translatedContent: {},
+            translatedContent: OtherTranslations,
             // @ts-ignore
             scrollDisabled: !displayedBirds.concat(displayedBonuses).slice(SLICE_WINDOW).length
         }

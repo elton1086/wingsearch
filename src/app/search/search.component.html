@@ -8,7 +8,7 @@
                         <source type="image/png" srcset="assets/icons/png/flocking.png">
                         <img class="input-image" src="assets/icons/png/flocking.png" alt="flocking" aria-hidden="true">
                     </picture>
-                    Search birds and bonus cards
+                    {{localizedResources['search.label.cardName']}}
                 </mat-label>
                 <input matInput autocomplete="off" [(ngModel)]='query.main' (ngModelChange)="onQueryChange()"
                     (keydown)="onKeyDown($event)">
@@ -16,9 +16,9 @@
                     (click)="query.main=''; onQueryChange()">
                     <mat-icon>close</mat-icon>
                 </button>
-                <mat-hint>Use card name or description</mat-hint>
+                <mat-hint>{{localizedResources['search.hint.cardName']}}</mat-hint>
             </mat-form-field>
-            <app-stats *ngIf="canFitStats" [mobile]="false" [statsControls]="query.stats"
+            <app-stats *ngIf="canFitStats" [mobile]="false" [statsControls]="query.stats" [localizedResources]="localizedResources"
                 (statsChange)="onStatsChange($event)"></app-stats>
         </mat-panel-title>
     </mat-expansion-panel-header>
@@ -31,9 +31,9 @@
                 <img class="input-image" src="assets/cards/backgrounds/bonus-background.jpg" alt="bonus background"
                     aria-hidden="true">
             </picture>
-            Search birds by applicable bonus cards
+            {{localizedResources['search.label.bonusCard']}}
         </mat-label>
-        <mat-hint>Use bonus card name or condition</mat-hint>
+        <mat-hint>{{localizedResources['search.hint.bonusCard']}}</mat-hint>
         <mat-chip-list #chipList aria-label="Bonus cards selection">
             <ng-container *ngFor="let bonus of bonusCards | async">
                 <mat-chip class="custom-chip" [removable]="true" *ngIf="query.bonus.includes(bonus.id)"
@@ -58,7 +58,7 @@
             </mat-option>
         </mat-autocomplete>
     </mat-form-field>
-    <div class="flex-mgt20 justify-content-unset" matTooltip="Toggle birds with a specific power color">
+    <div class="flex-mgt20 justify-content-unset" matTooltip="{{localizedResources['search.tooltip.powerType']}}">
         <span appAnalyticsEvent="Toggle power" eventLabel="brown" class="pointer shrink"
             [ngClass]="{inactive: !query.colors.brown}" (click)="togglePower('brown')">
             <picture>
@@ -107,7 +107,7 @@
             </picture>
         </span>
     </div>
-    <div class="flex-mgt20 justify-content-unset" matTooltip="Toggle birds with a specific food cost">
+    <div class="flex-mgt20 justify-content-unset" matTooltip="{{localizedResources['search.tooltip.foodType']}}">
         <span appAnalyticsEvent="Toggle food" eventLabel="invertebrate" class="pointer shrink"
             [ngClass]="{inactive: !query.food.invertebrate}" (click)="toggleFood('invertebrate')">
             <picture>
@@ -184,7 +184,7 @@
     </div>
     <div class="row">
         <div class="flex-column">
-            <div class="flex-mgt20 justify-content-unset" matTooltip="Toggle birds with a specific nest type">
+            <div class="flex-mgt20 justify-content-unset" matTooltip="{{localizedResources['search.tooltip.nestType']}}">
                 <span appAnalyticsEvent="Toggle nest" eventLabel="bowl" class="pointer shrink"
                     [ngClass]="{inactive: !query.nest.Bowl}" (click)="toggleNest('Bowl')">
                     <picture>
@@ -250,7 +250,7 @@
                         <source type="image/webp" srcset="assets/icons/png/egg.webp">
                         <source type="image/png" srcset="assets/icons/png/egg.png">
                         <img src="assets/icons/png/egg.png" alt="egg" aria-hidden="false"
-                            matTooltip="Filter by the egg capacity" aria-label="Select number of eggs"
+                            matTooltip="{{localizedResources['search.tooltip.eggCapacity']}}" aria-label="Select number of eggs"
                             style="max-height: 24px; width: auto; margin-left: 10px">
                     </picture>
                 </span>
@@ -265,7 +265,7 @@
                         <source type="image/webp" srcset="assets/icons/png/point.webp">
                         <source type="image/png" srcset="assets/icons/png/point.png">
                         <img src="assets/icons/png/point.png" alt="point" aria-hidden="false"
-                            matTooltip="Filter by the number of points" aria-label="Select number of points"
+                            matTooltip="{{localizedResources['search.tooltip.pointsNumber']}}" aria-label="Select number of points"
                             style="max-height: 34px; width: auto; margin-left: 10px">
                     </picture>
                 </span>
@@ -280,7 +280,7 @@
                         <source type="image/webp" srcset="assets/icons/png/wingspan.webp">
                         <source type="image/png" srcset="assets/icons/png/wingspan.png">
                         <img src="assets/icons/png/wingspan.png" alt="wingspan" aria-hidden="false"
-                            matTooltip="Filter by wingspan" aria-label="Select wingspan"
+                            matTooltip="{{localizedResources['search.tooltip.wingspan']}}" aria-label="Select wingspan"
                             style="max-height: 10px; width: auto; margin-left: 10px; margin-top: 10px">
                     </picture>
                 </span>
@@ -292,14 +292,14 @@
                             (userChangeEnd)="onFoodCostChange()"></ngx-slider>
                     </div>
                     <img src="assets/icons/svg/food-cost.svg" alt="food cost" aria-hidden="false"
-                            matTooltip="Filter by food cost" aria-label="Select food cost"
+                            matTooltip="{{localizedResources['search.tooltip.foodCost']}}" aria-label="Select food cost"
                             style="max-height: 70%; width: auto; margin-left: 10px; margin-top: 2px">
                 </span>
             </div>
         </div>
         <div class="flex-column justify-end">
             <div class="beak-wrapper">
-                <div class="flex-row" matTooltip="Toggle birds with a specific beak type">
+                <div class="flex-row" matTooltip="{{localizedResources['search.tooltip.beakType']}}">
                     <span appAnalyticsEvent="Toggle beak" eventLabel="left" class="pointer shrink"
                         [ngClass]="{inactive: !query.beak.left}" (click)="toggleBeak('left')">
                         <picture>
@@ -321,12 +321,12 @@
                 </div>
             </div>
             <div class="language-wrapper">
-                <div appAnalyticsEvent="Show language support" matTooltip="More about language support"
+                <div appAnalyticsEvent="Show language support" matTooltip="{{localizedResources['search.tooltip.languageMoreInfo']}}"
                     (click)="openLanguageDialog()">
                     <mat-icon>help_outline</mat-icon>
                 </div>
                 <mat-form-field class="language-select">
-                    <mat-label>Language</mat-label>
+                    <mat-label>{{localizedResources['search.label.language']}}</mat-label>
                     <mat-select [(ngModel)]="language" (ngModelChange)="languageChange($event)">
                         <mat-select-trigger>
                             <img src="assets/icons/i18n/{{language}}.jpg">
@@ -347,7 +347,7 @@
             </div>
             <div class="expansion-wrapper">
                 <mat-form-field>
-                    <mat-label>Expansions</mat-label>
+                    <mat-label>{{localizedResources['search.label.expansions']}}</mat-label>
                     <mat-select [(ngModel)]="selectedExpansions" (ngModelChange)="expansionChange($event)" multiple>
                         <mat-select-trigger>
                             <picture *ngFor="let expansion of selectedExpansions">
@@ -371,8 +371,8 @@
                 </mat-form-field>
             </div>
             <button appAnalyticsEvent="Reset filter" mat-raised-button color="primary" aria-label="Reset all filters"
-                (click)="clearFilter(); bonusInput.value = ''" matTooltip="Reset all filters (except expansions)">
-                Reset <mat-icon>filter_alt</mat-icon>
+                (click)="clearFilter(); bonusInput.value = ''" matTooltip="{{localizedResources['search.tooltip.resetFilters']}}">
+                {{localizedResources['search.button.reset']}} <mat-icon>filter_alt</mat-icon>
             </button>
         </div>
     </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
+import { Component, Input, OnInit, ViewChild } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { search, bonusCardSearch, changeLanguage, resetLanguage } from '../store/app.actions'
 import { AppState, BonusCard } from '../store/app.interfaces'
@@ -17,6 +17,8 @@ import { AnalyticsService } from '../analytics.service'
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
+
+  @Input() localizedResources: {[key: string]: string} = {}
 
   readonly supportedLanguages = [
     { value: 'en', display: 'English' },

@@ -11,7 +11,7 @@ export interface AppState {
     expansion: Expansion
     displayedStats: DisplayedStats
     scrollDisabled: boolean
-    translatedContent: { [key: string]: { Translated: string } }
+    translatedContent: { [key: string]: TranslatedContent }
 }
 
 export interface BirdCard {
@@ -165,4 +165,9 @@ export interface DisplayedStats {
         grassland: number
         wetland: number
     }
+}
+
+export interface TranslatedContent {
+    'English name': string
+    Translated?: string
 }

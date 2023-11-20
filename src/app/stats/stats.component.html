@@ -1,8 +1,8 @@
 <div class="stats-container" [ngClass]="{mobile: mobile}" *ngIf="stats$ | async as stats">
     <span appAnalyticsEvent="Toggle bonuses" class="stats-entry" [ngClass]="{inactive: !statsControls.bonuses}"
         (click)="toggleCards('bonuses', $event)"
-        matTooltip="{{statsControls.bonuses ? 'Filter out' : 'Count in'}} all bonuses">
-        {{stats.bonusCards}}
+        matTooltip="{{statsControls.bonuses ? localizedResources['search.tooltip.filterBonuses'] : localizedResources['search.tooltip.countBonuses']}}">
+        {{stats.bonusCards}}        
         <picture>
             <source type="image/webp" srcset="assets/cards/backgrounds/bonus-background.webp">
             <source type="image/jpg" srcset="assets/cards/backgrounds/bonus-background.jpg">
@@ -11,7 +11,7 @@
     </span>
     <span appAnalyticsEvent="Toggle birds" class="stats-entry" [ngClass]="{inactive: !statsControls.birds}"
         (click)="toggleCards('birds', $event)"
-        matTooltip="{{statsControls.birds ? 'Filter out' : 'Count in'}} all birds">
+        matTooltip="{{statsControls.birds ? localizedResources['search.tooltip.filterBirds'] : localizedResources['search.tooltip.countBirds']}}">
         {{stats.birdCards}}
         <picture>
             <source type="image/webp" srcset="assets/icons/png/bird.webp">
@@ -20,7 +20,7 @@
         </picture>
     </span>
     <div class="habitat-container" [ngClass]="{mobile: mobile}"
-        matTooltip="Filter birds that can live in a specific habitat">
+        matTooltip="{{localizedResources['search.tooltip.habitatType']}}">
         <span appAnalyticsEvent="Toggle habitat" eventLabel="forest" class="stats-entry"
             [ngClass]="{inactive: !statsControls.habitat.forest}" (click)="toggleHabitat('forest', $event)">
             {{stats.habitat.forest}}

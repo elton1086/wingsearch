@@ -1,0 +1,86 @@
+{
+	"card.whenActivated": {
+		"English name": "WHEN ACTIVATED"
+	},
+	"card.whenPlayed": {
+		"English name": "WHEN PLAYED"
+	},
+	"card.betweenTurns": {
+		"English name": "ONCE BETWEEN TURNS"
+	},
+	"card.roundEnd": {
+		"English name": "ROUND END"
+	},
+	"card.gameEnd": {
+		"English name": "GAME END"
+	},
+	"card.ofCards": {
+		"English name": "of cards"
+	},
+	"search.label.cardName": {
+		"English name": "Search birds and bonus cards"
+	},
+	"search.hint.cardName": {
+		"English name": "Use card name or description"
+	},
+	"search.label.bonusCard": {
+		"English name": "Search birds by applicable bonus cards"
+	},
+	"search.hint.bonusCard ": {
+		"English name": "Use bonus card name or condition "
+	},
+	"search.tooltip.powerType": {
+		"English name": "Toggle birds with a specific power color "
+	},
+	"search.tooltip.foodType": {
+		"English name": "Toggle birds with a specific food cost "
+	},
+	"search.tooltip.nestType": {
+		"English name": "Toggle birds with a specific nest type "
+	},
+	"search.tooltip.eggCapacity": {
+		"English name": "Filter by the egg capacity "
+	},
+	"search.tooltip.pointsNumber": {
+		"English name": "Filter by the number of points "
+	},
+	"search.tooltip.wingspan": {
+		"English name": "Filter by wingspan "
+	},
+	"search.tooltip.foodCost": {
+		"English name": "Filter by food cost "
+	},
+	"search.tooltip.beakType": {
+		"English name": "Toggle birds with a specific beak type "
+	},
+	"search.tooltip.filterBonuses": {
+		"English name": "Filter out all bonuses"
+	},
+	"search.tooltip.countBonuses": {
+		"English name": "Count in all bonuses"
+	},
+	"search.tooltip.filterBirds": {
+		"English name": "Filter out all birds"
+	},
+	"search.tooltip.countBirds": {
+		"English name": "Count in all birds"
+	},
+	"search.tooltip.habitatType": {
+		"English name": "Filter birds that can live in a specific habitat "
+	},
+	"search.tooltip.resetFilters": {
+		"English name": "Reset all filters (except expansions) "
+	},
+	"search.button.reset": {
+		"English name": "Reset "
+	},
+	"search.tooltip.languageMoreInfo": {
+		"English name": "More about language support "
+	},
+	"search.label.language": {
+		"English name": "Language"
+	},
+	"search.label.expansions": {
+		"English name": "Expansions"
+	}
+}

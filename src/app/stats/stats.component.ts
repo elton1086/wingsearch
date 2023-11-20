@@ -20,6 +20,8 @@ export class StatsComponent {
     bonuses: boolean
   }
 
+  @Input() localizedResources: {[key: string]: string} = {}
+
   @Output()
   statsChange = new EventEmitter()
 

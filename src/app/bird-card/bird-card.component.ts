@@ -55,11 +55,11 @@ export class BirdCardComponent implements OnInit {
     const escapePower = (power: string) => power ? `[${power.toLowerCase().replace(' ', '-')}]` : ''
     const powerKeys = ['Predator', 'Flocking', 'Bonus card']
     const textMap = {
-      Brown: 'WHEN ACTIVATED',
-      White: 'WHEN PLAYED',
-      Pink: 'ONCE BETWEEN TURNS',
-      Teal: 'ROUND END',
-      Yellow: 'GAME END'
+      Brown: 'card.whenActivated',
+      White: 'card.whenPlayed',
+      Pink: 'card.betweenTurns',
+      Teal: 'card.roundEnd',
+      Yellow: 'card.gameEnd'
     }
 
     return this.powerTitle

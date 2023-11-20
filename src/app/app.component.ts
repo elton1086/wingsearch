@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core'
-import { MatIconRegistry } from '@angular/material/icon'
+import { Component, OnInit } from '@angular/core';
+import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { CookiesService } from './cookies.service'
+import { Store } from '@ngrx/store';
+import { Observable, map, of } from 'rxjs';
+import { CookiesService } from './cookies.service';
+import { AppState } from './store/app.interfaces';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +12,19 @@ import { CookiesService } from './cookies.service'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'wingsearch'
-  displayConsent = false
+  public title = 'wingsearch'
+  public displayConsent = false
+  public localizedResources$: Observable<{[key: string]: string}> = of({})
 
-  constructor(private cookies: CookiesService, registry: MatIconRegistry, sanitizer: DomSanitizer) {
+  constructor(private cookies: CookiesService, private store: Store<{ app: AppState }>,
+    registry: MatIconRegistry, sanitizer: DomSanitizer) {
     registry.addSvgIcon('externalLink', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/svg/external-link.svg'))
+    this.localizedResources$ = store.select(({ app }) => app.translatedContent)
+      .pipe(map(translatedContent => 
+        Object.entries(translatedContent).reduce((acc, val) => ({ 
+          ...acc, 
+          [val[0]]: val[1].Translated || val[1]['English name'] || ''
+        }), {})));
   }
 
   ngOnInit(): void {
